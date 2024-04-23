@@ -3,8 +3,10 @@ from robocorp.tasks import task
 
 @task
 def order_robots_process():
+    # 'https://robotsparebinindustries.com/#/robot-order'
     scrapper = Scrapper()
-    scrapper.open_robot_order_website('https://robotsparebinindustries.com/#/robot-order')
+    site_url = scrapper.ask_user_for_url()
+    scrapper.open_robot_order_website(site_url)
     orders = scrapper.get_orders('https://robotsparebinindustries.com/orders.csv')
     for row in orders:
         scrapper.close_constitutional_rights_modal()
