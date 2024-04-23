@@ -1,0 +1,12 @@
+class Locators:
+    CLOSE_MODAL_BTN = '//button[contains(., "OK")]'
+    HEAD_SELECT = 'head'
+    BODY_INPUT = 'id-body-'
+    LEGS_INPUT = '//input[@placeholder="Enter the part number for the legs"]'
+    SHIPPING_ADDRESS = 'address'
+    PREVIEW_BTN = 'preview'
+    ORDER_BTN = 'order'
+    ORDER_ANOTHER_BTN = 'order-another'
+    SERVER_ERROR_ALERT = '//div[@role="alert"]'
+    RECEIPT_DIV = 'receipt'
+    ROBOT_PREVIEW_DIV = 'robot-preview'
