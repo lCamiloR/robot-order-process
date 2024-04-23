@@ -21,7 +21,7 @@ class Scrapper:
         Args:
             url (str): URL to the 'Build and order your robot!' pages.
         """
-        self.browser.start_driver(url, headless=False, maximized=True)
+        self.browser.start_driver(url, headless=True, maximized=True)
 
     @staticmethod
     def get_orders(url:str) -> Table:
