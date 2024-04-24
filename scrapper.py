@@ -10,6 +10,9 @@ from SeleniumLibrary.errors import ElementNotFound
 import logging
 from retry import retry
 
+ORDERS_CSV_PATH = 'output/orders.csv'
+RECEIPTS_BASE_DIR = 'output/receipts'
+
 class Scrapper:
 
     def __init__(self) -> None:
@@ -42,11 +45,11 @@ class Scrapper:
             url (str): CSV download url.
         """
         http = HTTP()
-        http.download(url, 'output/orders.csv', overwrite=True)
+        http.download(url, ORDERS_CSV_PATH, overwrite=True)
         
         library = Tables()
         return library.read_table_from_csv(
-            'output/orders.csv', header=True
+            ORDERS_CSV_PATH, header=True
         )
     
     def close_constitutional_rights_modal(self) -> None:
@@ -79,7 +82,7 @@ class Scrapper:
         """
         receipt_html = self.browser.wait_element_enabled_and_get_attribute(Locators.RECEIPT_DIV, 'innerHTML')
         pdf = PDF()
-        pdf_path = f'output/receipts/receipt_order_number_{order_number}.pdf'
+        pdf_path = f'{RECEIPTS_BASE_DIR}/receipt_order_number_{order_number}.pdf'
         pdf.html_to_pdf(receipt_html, pdf_path)
 
         screen_shot_path = f'output/preview_shot_{order_number}.png'
@@ -98,10 +101,10 @@ class Scrapper:
     def archive_receipts() -> None:
         """Zip all the pdf receipts"""
         lib = Archive()
-        lib.archive_folder_with_zip('output/receipts', 'output/receipts.zip')
+        lib.archive_folder_with_zip(RECEIPTS_BASE_DIR, 'output/receipts.zip')
         file_system = FileSystem()
-        file_system.empty_directory('output/receipts')
-        file_system.remove_directory('output/receipts')
+        file_system.empty_directory(RECEIPTS_BASE_DIR)
+        file_system.remove_directory(RECEIPTS_BASE_DIR)
 
     def order_another_robot(self) -> None:
         """Click in on the 'Order another robot' button"""
